@@ -11,6 +11,12 @@ The project uses FastAPI (https://fastapi.tiangolo.com/), on AWS Lambda function
  Single-table in DynamoDB is to retrieve multiple, heterogenous item types using a single request.
  Data access patterns can be handled with  as few requests to DynamoDB as possible.
 
+     ```
+        Users have one-to-many relationship with Orders
+
+
+     ```
+
 # Services Tier
 1 *UserService* - API Gateway REST API with Proxy Lambda function.
 The UserService exposes the following endpoints to maintain and manage users.
