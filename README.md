@@ -34,6 +34,7 @@ terraform apply  [-auto-approve]
 
 # Services Tier
 1 *UserService* - API Gateway REST API with Proxy Lambda function.
+![user](https://github.com/msharma24/serverless-microservices/blob/main/diagrams/user-svc.png)
 The UserService exposes the following endpoints to maintain and manage users.
 
 `/add-user/{dict}`   - The `email` address and the `username` must always be unique - A duplicate record will result in Transaction Canceled error.
@@ -72,6 +73,7 @@ curl -X 'POST' \
 
 
 2 *OrderService* - API Gateway REST API with Proxy Lambda function.
+![order](https://github.com/msharma24/serverless-microservices/blob/main/diagrams/order-svc.png)
 The OrderService maintains and manages order data.
 This service exposes the following endpoints.
 
