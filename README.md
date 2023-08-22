@@ -47,4 +47,92 @@ curl -X 'POST' \
 
 
 2 *OrderService* - API Gateway REST API with Proxy Lambda function.
-The OrderService maintains and manage order data
+The OrderService maintains and manages order data.
+This service exposes the following endpoints.
+
+`/orders/{username}` - Returns existing order information.
+```
+curl -X 'GET' \
+  'https://{API_GW_ID}.execute-api.us-east-1.amazonaws.com/dev/orders/?username=john' \
+  -H 'accept: application/json'
+
+
+Returns
+
+  "message": "orders fetched successfully",
+  "data": [
+    {
+      "SK": "CUSTOMER#john",
+      "PK": "CUSTOMER#john",
+      "Email": "john@gmail.com",
+      "Username": "john",
+      "Name": "john smith"
+    },
+    {
+      "NumberItems": 2,
+      "SK": "#ORDER#2UJT4m2UkBAWG7DHDLfkXxbMN04",
+      "Status": "PLACED",
+      "Amount": 5.5,
+      "PK": "CUSTOMER#john",
+      "OrderId": "2UJT4m2UkBAWG7DHDLfkXxbMN04",
+      "CreatedAt": "2023-08-21T22:21:34.811747"
+    }
+  ]
+}
+
+```
+`/orders/{dict}` - Create new order
+```
+curl -X 'POST' \
+  'https://{API_GW_ID}.execute-api.us-east-1.amazonaws.com/dev/orders/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "amount": 5.5,
+  "numItems": 2,
+  "username": "john"
+}'
+
+Returns
+{
+  "message": "Order placed successfully",
+  "success": true,
+  "data": {
+    "PK": "CUSTOMER#john",
+    "SK": "#ORDER#2UJuYiRSoBMgAiXg7jBp0V0UqxU",
+    "OrderId": "2UJuYiRSoBMgAiXg7jBp0V0UqxU",
+    "CreatedAt": "2023-08-22T02:07:33.696174",
+    "Status": "PLACED",
+    "Amount": 5.5,
+    "NumberItems": 2
+  }
+}
+
+```
+`/orders/{order_id}/{dict}` - Update order status
+```
+curl -X 'PUT' \
+  'https://{API_GW_ID}.execute-api.us-east-1.amazonaws.com/dev/orders/2UJuYiRSoBMgAiXg7jBp0V0UqxU' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "username": "john",
+  "status": "CANCEL"
+}'
+Returns
+{
+  "message": "Order updated successfully",
+  "success": true,
+  "data": {
+    "UpdatedAt": "2023-08-22T02:09:03.577842",
+    "NumberItems": 2,
+    "SK": "#ORDER#2UJuYiRSoBMgAiXg7jBp0V0UqxU",
+    "Status": "CANCEL",
+    "Amount": 5.5,
+    "PK": "CUSTOMER#john",
+    "OrderId": "2UJuYiRSoBMgAiXg7jBp0V0UqxU",
+    "CreatedAt": "2023-08-22T02:07:33.696174"
+  }
+}
+````
+
