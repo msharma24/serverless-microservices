@@ -9,7 +9,7 @@ The project uses FastAPI (https://fastapi.tiangolo.com/),  and the infrastructur
 
 # Services Tier
 1 *UserService* - API Gateway REST API with Proxy Lambda function.
-The UserService exposes the following endpoints.
+The UserService exposes the following endpoints to maintain and manage user.
 
 `/add-user/{dict}`   - The `email` address and the `username` must always be unique - A duplicate record will result in Transaction Canceled error.
 ```
@@ -44,3 +44,7 @@ curl -X 'POST' \
   -H 'accept: application/json' \
   -d ''
 ````
+
+
+2 *OrderService* - API Gateway REST API with Proxy Lambda function.
+The OrderService maintains and manage order data
