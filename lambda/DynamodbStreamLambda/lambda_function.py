@@ -12,23 +12,27 @@ logger = Logger()
 
 @tracer.capture_lambda_handler
 def lambda_handler(event, context):
+    print(json.dumps(event))
     try:
-        for record in event["Records"]:
-            if record["eventName"] in [
-                "INSERT",
-                "MODIFY",
-            ]:  # Check if new item or item was modified
-                new_image = record["dynamodb"].get("NewImage")
+        logger.debug(f"Received event: {json.dumps(event)}")
 
-                if (
-                    new_image and "OrderId" in new_image
-                ):
-                    sns_client.publish(
+        event_name = event[0]['eventName']
+        logger.info(f"event_name")
+        if event_name in [
+                "INSERT",
+                "MODIFY"
+                ]:
+            new_image = event[0]['dynamodb'].get("NewImage")
+            if (
+                    new_image and 'OrderId' in new_image
+                    ):
+                sns_client.publish(
                         TopicArn=TOPIC_ARN,
                         Message=f"New entry added: {json.dumps(new_image)}",
-                        Subject="New Entry in DynamoDB",
-                    )
-        logger.info("Function executed successfully!")
+                        Subject="New Entry in DDB"
+                        )
+
+        logger.info("SNS Sent successfully!")
         return {
             "statusCode": 200,
             "body": json.dumps("Function executed successfully!"),
