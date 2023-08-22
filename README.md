@@ -155,8 +155,11 @@ The notification service is built using the AWS Eventbridge Pipes Service - The 
 
 The Lambda Powertools library is used in the lambda function code to structured logging and tracing [Lambda Powertools Lib](https://github.com/aws-powertools/powertools-lambda-python)
 
-Alarms - AWS Cloudwatch Alarms are created for the "Error" Metric Filter on the Lambda Log Groups - When errors are logged, An alarm will triggred to the SNS monitoring Topic.
+Alarms - AWS Cloudwatch Alarms are created for the "Error" Metric Filter on the Lambda Log Groups - When errors are logged, An alarm will triggered to the SNS monitoring Topic.
 
 
 # CI/CD Pipeline
 AWS Code pipeline and Codebuild services are used to build and deploy the project.
+
+# Scaling
+The API gateway, Lamda and Dynamodb services are designed for massive scaling. 
