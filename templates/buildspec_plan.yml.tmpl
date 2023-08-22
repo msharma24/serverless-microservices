@@ -41,6 +41,7 @@ phases:
     commands:
        - echo Build started on `date`
        - ls -l
+       - terraform init
        - terraform plan
   post_build:
     commands:

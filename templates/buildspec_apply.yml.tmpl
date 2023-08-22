@@ -42,6 +42,7 @@ phases:
        - echo Build started on `date`
        - ls -l
        - echo "[INFO] Running Terraform Apply for dev"
+       - terraform init
        - terraform apply -auto-approve
   post_build:
     commands:
