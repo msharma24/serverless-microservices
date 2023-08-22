@@ -51,7 +51,7 @@ resource "aws_codepipeline" "microservices_codepipeline" {
     name = "dev-plan"
 
     action {
-      name             = "dev-plane"
+      name             = "dev-plan"
       category         = "Build"
       owner            = "AWS"
       provider         = "CodeBuild"
