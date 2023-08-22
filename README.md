@@ -36,3 +36,11 @@ curl -X 'GET' \
   -H 'accept: application/json'
 
 ```
+
+`/edit-address/{username}{address_dict}` - Add/Edit/Update {username} address
+```
+curl -X 'POST' \
+  'https://xllrwe5j5k.execute-api.us-east-1.amazonaws.com/dev/edit-address?username=test111&new_address=124%20Street%20Akl%20NZ' \
+  -H 'accept: application/json' \
+  -d ''
+````
