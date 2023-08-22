@@ -10,7 +10,7 @@ resource "aws_dynamodb_table" "ecommerce_table" {
   range_key = "SK" #composite part key
 
   stream_enabled   = true
-  stream_view_type = "NEW_AND_OLD_IMAGES"
+  stream_view_type = "NEW_IMAGE"
 
 
   attribute {

@@ -60,9 +60,8 @@ EOF
 
   environment_variables = {
     environment             = var.environment
-    EVENT_BUS_NAME          = "custom-event-bus"
     POWERTOOLS_SERVICE_NAME = "DynamodbStreamLambda"
-    #aws_cloudwatch_event_bus.custom_event_bus.arn
+    SNS_TOPIC_ARN           = module.monitoring_sns_topic.topic_arn
   }
 
   tags = {
