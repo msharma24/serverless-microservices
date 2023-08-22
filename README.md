@@ -8,7 +8,9 @@ The project uses FastAPI (https://fastapi.tiangolo.com/) on AWS Lambda function 
 This configuration has been tested  "us-east-1" region
 
 1  - Run docker desktop - it is used by terraform to install pip libs and create lambda.zip
+
 2 - export AWS Credentials to CLI
+
 3 - 
 ```
 terraform init
