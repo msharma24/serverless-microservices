@@ -1,0 +1,16 @@
+# Ignore Python virtual environment directories
+**/__pycache__
+**/.pytest_cache
+**/.mypy_cache
+
+# Ignore installed packages
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/__pycache__/
+**/*.so
+**/*.egg-info
+**/pip/
+**/setuptools/
+**/wheel/
+**/dist/

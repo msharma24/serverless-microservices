@@ -1,0 +1,6 @@
+fastapi==0.95.0
+mangum==0.17.0
+uvicorn==0.21.1
+aws-lambda-powertools[aws-sdk]==2.14.1
+svix-ksuid==0.6.2
+simplejson
