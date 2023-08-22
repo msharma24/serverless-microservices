@@ -136,3 +136,5 @@ Returns
 }
 ````
 
+3 NotificationService
+The notification service is built using the AWS Eventbridge Pipes Service - The Eventbridge Pipe uses the DynamoDB Stream as Source and invokes the Lambda function when a new order is placed - The Notification is sent to a SNS Topic (_This configuration is WIP)_
