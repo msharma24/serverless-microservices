@@ -1,0 +1,67 @@
+version: 0.2
+
+env:
+  variables:
+    TF_VERSION: ${TF_VERSION}
+     # key: "value"
+     # key: "value"
+  #parameter-store:
+     # key: "value"
+     # key: "value"
+  #secrets-manager:
+     # key: secret-id:json-key:version-stage:version-id
+     # key: secret-id:json-key:version-stage:version-id
+  #exported-variables:
+     # - variable
+     # - variable
+  #git-credential-helper: yes
+#batch:
+  #fast-fail: true
+  #build-list:
+  #build-matrix:
+  #build-graph:
+phases:
+  install:
+    runtime-versions:
+      python: 3.9
+      # name: version
+      # name: version
+    commands:
+      - yum install zip unzip -y
+      - curl -s -qL -o terraform.zip https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip
+      - unzip -o terraform.zip
+      - mv terraform /bin
+      - rm terraform.zip
+      # - command
+      # - command
+  pre_build:
+    commands:
+       - echo Logging ...
+  build:
+    commands:
+       - echo Build started on `date`
+       - ls -l
+       - echo "[INFO] Running Terraform Apply for dev"
+       - terraform apply -auto-approve
+  post_build:
+    commands:
+       - echo Build completed on `date`
+       - echo Build completed on `date`
+#reports:
+  #report-name-or-arn:
+    #files:
+      # - location
+      # - location
+    #base-directory: location
+    #discard-paths: yes
+    #file-format: JunitXml | CucumberJson
+# artifacts:
+#   files:
+#     # - location
+#     # - location
+#   #name: $(date +%Y-%m-%d)
+#   #discard-paths: yes
+  #base-directory: location
+#cache:
+  #paths:
+    # - paths
