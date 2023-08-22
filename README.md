@@ -148,3 +148,12 @@ Returns
 
 3 NotificationService
 The notification service is built using the AWS Eventbridge Pipes Service - The Eventbridge Pipe uses the DynamoDB Stream as Source and invokes the Lambda function when a new order is placed - The Notification is sent to a SNS Topic (_This configuration is WIP)_
+
+
+
+## Monitoring and Logging
+
+The Lambda Powertools library is used in the lambda function code to structured logging and tracing [Lambda Powertools Lib](https://github.com/aws-powertools/powertools-lambda-python)
+
+Alarms - AWS Cloudwatch Alarms are created for the "Error" Metric Filter on the Lambda Log Groups - When there are errors logged - An alarm will triggred to the SNS monitoring Topic.
+
