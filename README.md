@@ -165,7 +165,7 @@ Returns
 
 3 *NotificationService*
 ![eb](https://github.com/msharma24/serverless-microservices/blob/main/diagrams/eb-pipe.png)
-The notification service is built using the AWS Eventbridge Pipes Service - The Eventbridge Pipe uses the DynamoDB Stream as Source and invokes the Lambda function when a new order is placed - The Notification is sent to a SNS Topic (_This configuration is WIP)_
+The notification service is built using the AWS Eventbridge Pipes Service - The Eventbridge Pipe uses the DynamoDB Stream `NEW_IMAGE` as Source and invokes the Lambda function when a new order is placed - The Notification is sent to a SNS Topic
 
 
 
