@@ -1,0 +1,76 @@
+import os
+import json
+import boto3
+from aws_lambda_powertools import Logger
+
+# Initialize the logger
+logger = Logger()
+
+# Get the event bus name and source from environment variables
+EVENT_BUS_NAME = os.environ["EVENT_BUS_NAME"]
+AWS_REGION = os.environ["AWS_REGION"]
+
+# Initialize the Boto3 client
+EVENTS_CLIENT = boto3.client("events", region_name=AWS_REGION)
+
+@logger.inject_lambda_context
+def lambda_handler(event, context):
+    """
+    Lambda function handler that consumes DynamoDB stream data and publishes the data to EventBridge.
+
+    Args:
+        event (dict): The event data passed to the Lambda function from the DynamoDB stream.
+        context (object): The runtime information of the Lambda function.
+
+    Returns:
+        dict: The response from EventBridge indicating the success or failure of event publication.
+    """
+    logger.info(f"Event: {event}")
+
+    record = event["Records"][0]
+    logger.info(f"Record: {record}")
+
+
+    # Extract the table name from the event source ARN
+    event_source_arn = record["eventSourceARN"]
+    ddb_table_name = event_source_arn.split(":")[5].split("/")[1]
+    logger.info(f"ddb_table_name: {ddb_table_name}")
+
+    # Try to extract the kvType value
+    try:
+        if "NewImage" in record["dynamodb"]:
+            kv_type = record["dynamodb"]["NewImage"]["kvType"]["S"]
+        else:
+            kv_type = record["dynamodb"]["OldImage"]["kvType"]["S"]
+    except KeyError:
+        logger.info("kvType not found in the event data. Defaulting to noType.")
+        kv_type = "noType"
+    logger.info(f"kv_type: {kv_type}")
+
+    try:
+        response = EVENTS_CLIENT.put_events(
+            Entries=[
+                {
+                    "EventBusName": EVENT_BUS_NAME,
+                    "Source": ddb_table_name,
+                    "Detail": json.dumps(record),
+                    "DetailType": kv_type,
+                },
+            ]
+        )
+        logger.info(f"ENTRIES==> DDB: {ddb_table_name} Detail: {json.dumps(record)} DetailType: {kv_type}")
+        logger.info(f"Successfully put event to EventBridge {EVENT_BUS_NAME}: {response}")
+
+        if response.get("FailedEntryCount", 0) > 0:
+            logger.error("Failed to put some events: %s", response)
+            for entry in response["Entries"]:
+                if "ErrorCode" in entry:
+                    logger.error("Error Code: %s", entry['ErrorCode'])
+                    logger.error("Error Message: %s", entry['ErrorMessage'])
+            raise Exception(f"Failed to put event to EventBridge: {event}")
+
+    except Exception as e:
+        logger.error(f"Error putting event to EventBridge: {e}")
+        raise
+
+    return response
