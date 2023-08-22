@@ -1,7 +1,7 @@
 # serverless-microservices
 
 # Introduction
-The project uses FastAPI (https://fastapi.tiangolo.com/), on AWS Lambda function with API GW  and the infrastructure is built using Terraform.
+The project uses FastAPI (https://fastapi.tiangolo.com/) on AWS Lambda function with API GW  and the infrastructure is built using Terraform.
 
 # Solution Architecture
 ![diagram](https://github.com/msharma24/serverless-microservices/blob/main/diagrams/serverless-microservices-aws.png)
@@ -12,7 +12,7 @@ The project uses FastAPI (https://fastapi.tiangolo.com/), on AWS Lambda function
  Data access patterns can be handled with  as few requests to DynamoDB as possible.
 
      ```
-        Users have one-to-many relationship with Orders
+        Users have a one-to-many relationship with Orders.
 
 
      ```
@@ -155,5 +155,8 @@ The notification service is built using the AWS Eventbridge Pipes Service - The 
 
 The Lambda Powertools library is used in the lambda function code to structured logging and tracing [Lambda Powertools Lib](https://github.com/aws-powertools/powertools-lambda-python)
 
-Alarms - AWS Cloudwatch Alarms are created for the "Error" Metric Filter on the Lambda Log Groups - When there are errors logged - An alarm will triggred to the SNS monitoring Topic.
+Alarms - AWS Cloudwatch Alarms are created for the "Error" Metric Filter on the Lambda Log Groups - When errors are logged, An alarm will triggred to the SNS monitoring Topic.
 
+
+# CI/CD Pipeline
+AWS Code pipeline and Codebuild services are used to build and deploy the project.
