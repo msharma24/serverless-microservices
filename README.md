@@ -1,7 +1,7 @@
 # serverless-microservices
 
 # Introduction
-The project uses FastAPI (https://fastapi.tiangolo.com/),  and the infrastructure is built using Terraform.
+The project uses FastAPI (https://fastapi.tiangolo.com/), on AWS Lambda function with API GW  and the infrastructure is built using Terraform.
 
 # Solution Architecture
 ![diagram](https://github.com/msharma24/serverless-microservices/blob/main/diagrams/serverless-microservices-aws.png)
