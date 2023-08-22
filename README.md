@@ -176,5 +176,7 @@ Alarms - AWS Cloudwatch Alarms are created for the "Error" Metric Filter on the 
 # CI/CD Pipeline
 AWS Code pipeline and Codebuild services are used to build and deploy the project.
 
+![CICD](https://github.com/msharma24/serverless-microservices/blob/main/diagrams/CICD.png)
+
 # Scaling
 The API gateway, Lamda and Dynamodb services are designed for massive scaling. 
