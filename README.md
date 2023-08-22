@@ -1,15 +1,25 @@
 # serverless-microservices
 
 # Introduction
-The project uses FastAPI (https://fastapi.tiangolo.com/), on AWS Lambda function with API GW  and the infrastructure is built using Terraform.
+The project uses FastAPI (https://fastapi.tiangolo.com/) on AWS Lambda function with API GW  and the infrastructure is built using Terraform.
 
 # Solution Architecture
 ![diagram](https://github.com/msharma24/serverless-microservices/blob/main/diagrams/serverless-microservices-aws.png)
 
+# Data Tier
+`AWS DynamoDB` is used as the User and Order Service database - Single-Table Design Pattern is used.
+ Single-table in DynamoDB is to retrieve multiple, heterogenous item types using a single request.
+ Data access patterns can be handled with  as few requests to DynamoDB as possible.
+
+     ```
+        Users have a one-to-many relationship with Orders.
+
+
+     ```
 
 # Services Tier
 1 *UserService* - API Gateway REST API with Proxy Lambda function.
-The UserService exposes the following endpoints to maintain and manage user.
+The UserService exposes the following endpoints to maintain and manage users.
 
 `/add-user/{dict}`   - The `email` address and the `username` must always be unique - A duplicate record will result in Transaction Canceled error.
 ```
@@ -136,3 +146,17 @@ Returns
 }
 ````
 
+3 NotificationService
+The notification service is built using the AWS Eventbridge Pipes Service - The Eventbridge Pipe uses the DynamoDB Stream as Source and invokes the Lambda function when a new order is placed - The Notification is sent to a SNS Topic (_This configuration is WIP)_
+
+
+
+## Monitoring and Logging
+
+The Lambda Powertools library is used in the lambda function code to structured logging and tracing [Lambda Powertools Lib](https://github.com/aws-powertools/powertools-lambda-python)
+
+Alarms - AWS Cloudwatch Alarms are created for the "Error" Metric Filter on the Lambda Log Groups - When errors are logged, An alarm will triggred to the SNS monitoring Topic.
+
+
+# CI/CD Pipeline
+AWS Code pipeline and Codebuild services are used to build and deploy the project.
