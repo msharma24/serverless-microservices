@@ -6,10 +6,14 @@ The project uses FastAPI (https://fastapi.tiangolo.com/), on AWS Lambda function
 # Solution Architecture
 ![diagram](https://github.com/msharma24/serverless-microservices/blob/main/diagrams/serverless-microservices-aws.png)
 
+# Data Tier
+`AWS DynamoDB` is used as the User and Order Service database - Single-Table Design Pattern is used.
+ Single-table in DynamoDB is to retrieve multiple, heterogenous item types using a single request.
+ Data access patterns can be handled with  as few requests to DynamoDB as possible.
 
 # Services Tier
 1 *UserService* - API Gateway REST API with Proxy Lambda function.
-The UserService exposes the following endpoints to maintain and manage user.
+The UserService exposes the following endpoints to maintain and manage users.
 
 `/add-user/{dict}`   - The `email` address and the `username` must always be unique - A duplicate record will result in Transaction Canceled error.
 ```
