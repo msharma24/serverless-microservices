@@ -2,3 +2,4 @@
 build
 builds/
 .terraform.lock.hcl
+terraform.tfstate*
