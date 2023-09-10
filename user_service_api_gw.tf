@@ -95,29 +95,3 @@ resource "aws_api_gateway_deployment" "user_service_rest_api_deployment" {
 }
 
 
-# resource "aws_api_gateway_domain_name" "user_service_rest_api_domain" {
-#   domain_name              = "dev.grus-api.com"
-#   regional_certificate_arn = module.helo_world_acm.acm_certificate_arn
-#
-#   endpoint_configuration {
-#     types = ["REGIONAL"]
-#   }
-#
-# }
-#
-# resource "aws_api_gateway_base_path_mapping" "user_service_rest_api_prod_stage_mapping" {
-#   api_id      = aws_api_gateway_rest_api.user_service_rest_api.id
-#   stage_name  = aws_api_gateway_stage.user_service_rest_api_stage_2.stage_name
-#   domain_name = aws_api_gateway_domain_name.user_service_rest_api_domain.domain_name
-# }
-#
-#
-# resource "aws_route53_record" "user_service_api_gw_dns_record" {
-#   zone_id = var.user_service_api_gw_route53_zone_id
-#   name    = var.user_service_api_gw_route53_custom_dns_record
-#   type    = "CNAME"
-#   ttl     = "300"
-#   records = [aws_api_gateway_domain_name.user_service_rest_api_domain.regional_domain_name
-#   ]
-#
-# }
